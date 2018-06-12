@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Tweet;
+use App\Mention;
 use Auth;
 
 class TweetController extends Controller
@@ -20,10 +21,18 @@ class TweetController extends Controller
 		if(Auth::id() === $user->id){
 			$this->validate(request(), ['tweet' => 'required|string|max:140']);
 
-			$body = str_replace("#", "@", parseMentions(request('tweet')));
+			$usersMentionedIds = array();
+			$body = str_replace("#", "@", parseMentions(request('tweet'), $usersMentionedIds));
 
 			$tweet = Tweet::create(['body' => $body, 'user_id' => $user->id]);
 			$user->tweets()->save($tweet);
+
+			foreach ($usersMentionedIds as $id => $value) {
+				
+				$mention = Mention::create(['tweet_id' => $tweet->id, 'user_id' => $id]);
+				$mention->tweet()->associate($tweet->id);
+				$mention->user()->associate($id);
+			}
 
 			return back()->withSuccess('Tweeted!');
 		}else

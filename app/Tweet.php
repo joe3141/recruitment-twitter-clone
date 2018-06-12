@@ -25,4 +25,10 @@ class Tweet extends Model
     {
         return $this->belongsToMany('App\User', 'likes', 'tweet_id', 'user_id')->withTimestamps();
     }
+
+    
+    public function mentions()
+    {
+        return $this->hasMany('App\Mention');
+    }
 }

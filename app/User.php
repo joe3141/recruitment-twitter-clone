@@ -55,4 +55,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tweet', 'likes', 'user_id', 'tweet_id')->withTimestamps();
     }
+
+    public function mentions()
+    {
+        return $this->hasMany('App\Mention');
+    }
 }
