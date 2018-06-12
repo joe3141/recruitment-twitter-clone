@@ -33,8 +33,8 @@ Route::post('search', 'UserController@search');
 Route::post('users/{user}/follow', 'UserController@follow');
 Route::post('users/{user}/unfollow', 'UserController@unfollow');
 
-// Route::get('oauth/{provider}', 'FacebookLoginController@redirect');
-// Route::get('oauth/{provider}/callback', 'FacebookLoginController@callback');
+Route::get('oauth/{provider}', 'FacebookLoginController@redirect');
+Route::get('oauth/{provider}/callback', 'FacebookLoginController@callback');
 
 
 /*

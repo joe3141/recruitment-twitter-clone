@@ -22,7 +22,14 @@
 
                         @foreach($activityContent as $tweet)
                         <tr>
-                            <td><a href="{{ url('users/' . $tweet->user->id) }}"><img src="{{ Request::root() . '/' . $tweet->user->avatar }}" width="100" height="100"></a></td>
+                            <td><a href="{{ url('users/' . $tweet->user->id) }}">
+                            @if(!$tweet->user->provider)
+                            <img src="{{ Request::root() . '/' . $tweet->user->avatar }}" width="100" height="100">
+
+                        @else
+                            <img src="{{ Request::root() . '/' . $tweet->user->avatar }}" width="100" height="100">
+                        @endif
+                            </a></td>
                             <td><a href="{{ url('users/' . $tweet->user->id) }}">{{ $tweet->user->username }}</a></td>
                             <td>{!! $tweet->body !!}</td>
                             @if(!Auth::user()->likes()->find($tweet->id))

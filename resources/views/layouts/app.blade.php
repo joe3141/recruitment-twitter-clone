@@ -100,11 +100,16 @@
 
                     <li>
                     <a href="{{ url('/users/' . Auth::user()->id) }}">
-                        <img src="{{ Request::root() . '/' . Auth::user()->avatar }}" alt="{{ Auth::user()->username }}" class="avatar">
+                        @if(!Auth::user()->provider)
+                            <img src="{{ Request::root() . '/' . Auth::user()->avatar }}" alt="{{ Auth::user()->username }}" class="avatar">
+
+                        @else
+                            <img src="{{ Auth::user()->avatar }}" alt="{{ Auth::user()->username }}" class="avatar">
+                        @endif
                     </a>
                     </li>
                     <li class="nav-item">
-                       <a href="{{ url('/news') }}">Home</a>
+                       <a href="{{ url('/home') }}">Home</a>
                     </li>
                     <li class="nav-item">
                        <a href="{{ url('/activity') }}">Activity</a>

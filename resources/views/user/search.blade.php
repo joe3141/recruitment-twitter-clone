@@ -21,7 +21,14 @@
 
 				@foreach($results as $user)
 					<tr>
-						<td><a href="{{ url('users/' . $user->id) }}"><img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100"></a></td>
+						<td><a href="{{ url('users/' . $user->id) }}">
+						@if(!$user->provider)
+                            <img src="{{ Request::root() . '/' . $user->avatar }}" alt="{{ $user->username }}" width="100" height="100">
+
+                        @else
+                            <img src="{{ $user->avatar }}" alt="{{ $user->username }}" width="100" height="100">
+                        @endif						
+                        </a></td>
 						<td><a href="{{ url('users/' . $user->id) }}">{{ $user->username }}</a></td>
 						<td>{{ $user->email }}</td>
 					</tr>

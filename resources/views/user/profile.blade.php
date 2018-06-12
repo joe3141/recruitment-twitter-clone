@@ -9,7 +9,14 @@
 			</div>
 
 			<div class="col-lg-4">
-				<a href="{{ Request::url() }}"><img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100"></a>		
+				<a href="{{ Request::url() }}">
+				 	@if(!$user->provider)
+                            <img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100">
+
+                        @else
+                            <img src="{{ $user->avatar }}" alt="{{ $user->username }}" width="100" height="100">
+                        @endif
+				</a>		
 			</div>
 
 			@if($profileOwner)
@@ -64,7 +71,14 @@
 
 					@foreach($tweets as $tweet)
 						<tr>
-							<td><a href="{{ url('users/' . $user->id) }}"><img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100"></a></td>
+							<td><a href="{{ url('users/' . $user->id) }}">
+							@if(!$user->provider)
+                            <img src="{{ Request::root() . '/' . $user->avatar }}" alt="{{ $user->username }}" width="100" height="100">
+
+                        @else
+                            <img src="{{ $user->avatar }}" alt="{{ $user->username }}" width="100" height="100">
+                        @endif
+							</a></td>
 							<td><a href="{{ url('users/' . $user->id) }}">{{ $user->username }}</a></td>
 							<td>{!! $tweet->body !!}</td>
 							@if(!Auth::user()->likes()->find($tweet->id))

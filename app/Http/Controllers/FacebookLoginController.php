@@ -31,10 +31,10 @@ class FacebookLoginController extends Controller
         if ($authUser) {
             return $authUser;
         }
-        dd($user->avatar_original ?: 'imgs/default.png');
         $avatar = $user->avatar_original ?: 'imgs/default.png';
+
         return User::create([
-            'name'     => str_replace(" ", "-", $user->name),
+            'username' => preg_replace(['/\s/', '/\./'], ['-', ''], $user->name),
             'email'    => $user->email,
             'avatar'   => $avatar,
             'provider' => $provider,
