@@ -39,4 +39,22 @@ class TweetController extends Controller
 			return redirect()->to(request()->root())->withErrors(['401' => 'You are not authorized to delete another user\'s tweet!']);
 		}
 	}
+
+	public function like(Tweet $tweet)
+	{
+		if(!$tweet)
+			return redirect()->back()->withErrors(array('like' => 'Tweet does not exist!'));
+
+		Auth::user()->likes()->attach($tweet->id);
+		return back();
+	}
+
+	public function unlike(Tweet $tweet)
+	{
+		if(!$tweet)
+			return redirect()->back()->withErrors(array('like' => 'Tweet does not exist!'));
+
+		Auth::user()->likes()->detach($tweet->id);
+		return back();
+	}
 }

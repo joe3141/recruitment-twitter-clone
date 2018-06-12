@@ -40,14 +40,13 @@
 						<form method="post" action="{{ Request::url() . '/unfollow' }}">
 							@csrf
 							<button type="submit" class="btn btn-primary" style="margin-top: 10px">Unfollow</button>
-							@includeWhen($errors->has('unfollow'), 'layouts.error', ['error' => $errors->first('unfollow')])
+							@includeWhen($errors->has('follow'), 'layouts.error', ['error' => $errors->first('follow')])
 						</form>
 					</div>
 				</div>
 			@endif
 		@endif
 
-		
 		@if(!empty($tweets->toArray()))
 			<div class="row">
 				<table class="table table-hover">
@@ -56,6 +55,7 @@
 							<th>Avatar</th>
 							<th>Username</th>
 							<th>Tweet</th>
+							<th>Like</th>
 							@if($profileOwner)
 								<th>Remove</th>
 							@endif
@@ -67,7 +67,20 @@
 							<td><a href="{{ url('users/' . $user->id) }}"><img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100"></a></td>
 							<td><a href="{{ url('users/' . $user->id) }}">{{ $user->username }}</a></td>
 							<td>{!! $tweet->body !!}</td>
-							
+							@if(!Auth::user()->likes()->find($tweet->id))
+
+								<td>
+									<a href="{{ url("like/$tweet->id") }}" class="btn btn-primary">Like</a>
+								</td>
+
+							@else
+
+								<td>
+									<a href="{{ url("unlike/$tweet->id") }}" class="btn btn-primary">Unlike</a>
+								</td>
+
+							@endif
+
 							@if($profileOwner)
 								<td>
 									<form method="post" action="{{ url('/tweet/' . $user->id . '/' . $tweet->id) }}">
@@ -81,6 +94,8 @@
 					@endforeach
 				</table>
 			</div>
+
+			@includeWhen($errors->has('like'), 'layouts.error', ['error' => $errors->first('like')])
 		@else
 			<div class="row">
 				<h3>User Has Not Made Any Tweets</h3>

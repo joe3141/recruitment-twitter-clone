@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
        return $this->following()->where('user_id', '=', $user_id)->first() ? true : false;
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany('App\Tweet', 'likes', 'user_id', 'tweet_id')->withTimestamps();
+    }
 }

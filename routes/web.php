@@ -42,3 +42,5 @@ Route::post('users/{user}/unfollow', 'UserController@unfollow');
 
 Route::post('/tweet/{user}', 'TweetController@create');
 Route::delete('/tweet/{user}/{tweet}', 'TweetController@delete');
+Route::get('/like/{tweet}', 'TweetController@like');
+Route::get('/unlike/{tweet}', 'TweetController@unlike');
