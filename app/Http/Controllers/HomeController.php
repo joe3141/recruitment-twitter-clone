@@ -31,6 +31,6 @@ class HomeController extends Controller
     public function activity()
     {
         $activityContent = Auth::user()->activityFeed();
-        dd($activityContent);
+        return view('activity', compact('activityContent'));
     }
 }

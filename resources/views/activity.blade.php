@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">News Feed</div>
+                <div class="card-header">Activity Feed</div>
 
                 
                 <div class="container">
@@ -20,7 +20,7 @@
                                 </tr>
                             </thead>
 
-                        @foreach($newsFeedContent as $tweet)
+                        @foreach($activityContent as $tweet)
                         <tr>
                             <td><a href="{{ url('users/' . $tweet->user->id) }}"><img src="{{ Request::root() . '/' . $tweet->user->avatar }}" width="100" height="100"></a></td>
                             <td><a href="{{ url('users/' . $tweet->user->id) }}">{{ $tweet->user->username }}</a></td>

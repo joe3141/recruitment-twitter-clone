@@ -104,7 +104,10 @@
                     </a>
                     </li>
                     <li class="nav-item">
-                       <a href="{{ url('/home') }}">Home</a>
+                       <a href="{{ url('/news') }}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                       <a href="{{ url('/activity') }}">Activity</a>
                     </li>
                     <li>
                         <a href="{{ route('logout') }}"
