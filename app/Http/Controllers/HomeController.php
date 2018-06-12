@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $newsFeedContent = Auth::user()->newsFeed();
+        return view('home', compact('newsFeedContent'));
+    }
+
+    public function activity()
+    {
+        $activityContent = Auth::user()->activityFeed();
+        dd($activityContent);
     }
 }

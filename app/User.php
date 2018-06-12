@@ -60,4 +60,29 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Mention');
     }
+
+    public function newsFeed()
+    {
+        $tweets = $this->tweets()->get();
+        $followers = $this->followers()->get();
+
+        foreach ($followers as $follower) {
+            $tweets = $tweets->merge($follower->tweets()->get());
+        }
+
+        return $tweets->unique('id')->sortByDesc('created_at');
+    }
+
+    public function activityFeed()
+    {
+        $following = $this->following()->get();
+        $tweets = collect();
+
+        foreach ($following as $followedUser) {
+            $tweets = $tweets->merge($followedUser->tweets()->get());
+            $tweets = $tweets->merge($followedUser->likes()->get());
+        }
+
+        return $tweets->unique('id')->sortByDesc('created_at');
+    }
 }
