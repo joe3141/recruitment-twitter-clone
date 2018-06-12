@@ -48,6 +48,6 @@ class User extends Authenticatable
 
     public function doesFollow($user_id)
     {
-       return $this->following()->where('user_id', '=', $user_id)->get()->first() ? true : false;
+       return $this->following()->where('user_id', '=', $user_id)->first() ? true : false;
     }
 }

@@ -66,7 +66,7 @@
 						<tr>
 							<td><a href="{{ url('users/' . $user->id) }}"><img src="{{ Request::root() . '/' . $user->avatar }}" width="100" height="100"></a></td>
 							<td><a href="{{ url('users/' . $user->id) }}">{{ $user->username }}</a></td>
-							<td>{{ $tweet->body }}</td>
+							<td>{!! $tweet->body !!}</td>
 							
 							@if($profileOwner)
 								<td>
