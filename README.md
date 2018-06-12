@@ -1,7 +1,7 @@
 # recruitment-twitter-clone
 Twitter clone created in laravel for a recruitment task.
 
-### Heading 3 ###
+### Features ###
     User Registration and log in
     Search for users by username
     Follow user
