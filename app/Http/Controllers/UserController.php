@@ -7,23 +7,30 @@ use Illuminate\Http\Request;
 use App\User;
 use Image;
 use Auth;
+// use Redirect;
 
 class UserController extends Controller
 {	
 
 	public function __construct()
 	   {
-	   	$this->middleware('auth')->except('show');
+	   	$this->middleware('auth');
 	   }   
 
 
 	public function show(User $user) {	
-		return view('user.profile', compact('user'));
+		$tweets = $user->tweets()->orderBy('created_at', 'desc')->get();
+		$profileOwner = Auth::id() === $user->id;
+		return view('user.profile', compact('user', 'tweets', 'profileOwner'));
 	}
 
-	public function edit()
+	public function edit(User $user)
 	{
-		return view('user.edit');
+		if(Auth::id() === $user->id)
+			return view('user.edit');
+		else
+			// Redirect::back()->withErrors(['404', 'You are not authorized to edit another user\'s data!']);
+		return redirect()->to(request()->root())->withErrors(['401' => 'You are not authorized to edit another user\'s data!']);
 	}
 
 	public function update(User $user)

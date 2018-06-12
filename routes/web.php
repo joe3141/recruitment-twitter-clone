@@ -35,3 +35,10 @@ Route::post('users/{user}/unfollow', 'UserController@unfollow');
 // Route::get('oauth/{provider}', 'FacebookLoginController@redirect');
 // Route::get('oauth/{provider}/callback', 'FacebookLoginController@callback');
 
+
+/*
+* Tweet routes
+*/
+
+Route::post('/tweet/{user}', 'TweetController@create');
+Route::delete('/tweet/{user}/{tweet}', 'TweetController@delete');

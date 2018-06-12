@@ -18,7 +18,7 @@
                             <div class="col-md-6">
                                 <input id="username" type="text" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" placeholder="{{ Auth::user()->username }}" autofocus>
 
-                                @includeWhen($errors->has('username'), 'layouts.error')
+                                @includeWhen($errors->has('username'), 'layouts.error', ['error' => $errors->first('username')])
                             </div>
                         </div>
 
@@ -28,7 +28,7 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" placeholder="{{ Auth::user()->email }}">
 
-                                @includeWhen($errors->has('email'), 'layouts.error')
+                                @includeWhen($errors->has('email'), 'layouts.error', ['error' => $errors->first('email')])
                             </div>
                         </div>
 
@@ -38,7 +38,7 @@
                             <div class="col-md-6">
                                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="off">
 
-                                @includeWhen($errors->has('password'), 'layouts.error')
+                                @includeWhen($errors->has('password'), 'layouts.error', ['error' => $errors->first('password')])
                             </div>
                         </div>
 
@@ -55,7 +55,7 @@
 
                             <div class="col-md-6">
                                 <input id="avatar" type="file" class="form-control" name="avatar">
-                                @includeWhen($errors->has('avatar'), 'layouts.error')
+                                @includeWhen($errors->has('avatar'), 'layouts.error', ['error' => $errors->first('avatar')])
                             </div>
                         </div>
 
